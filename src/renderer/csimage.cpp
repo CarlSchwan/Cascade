@@ -19,10 +19,6 @@
 
 #include "csimage.h"
 
-#include "../log.h"
-#include "renderconfig.h"
-#include "../benchmark.h"
-
 namespace Cascade::Renderer {
 
 CsImage::CsImage(
@@ -65,16 +61,6 @@ CsImage::CsImage(
                 mCurrentLayout);
     mImage = mDevice->createImageUnique(imageInfo).value;
 
-#ifdef QT_DEBUG
-    {
-        vk::DebugUtilsObjectNameInfoEXT debugUtilsObjectNameInfo(
-                    vk::ObjectType::eImage,
-                    NON_DISPATCHABLE_HANDLE_TO_UINT64_CAST(VkImage, *mImage),
-                    debugName);
-        auto result = mDevice->setDebugUtilsObjectNameEXT(debugUtilsObjectNameInfo);
-    }
-#endif
-
     // Get how much memory we need and how it should aligned
     vk::MemoryRequirements memReq = mDevice->getImageMemoryRequirements(*mImage);
 
@@ -98,18 +84,9 @@ CsImage::CsImage(
     vk::MemoryAllocateInfo allocInfo(memReq.size, memIndex);
     mMemory = mDevice->allocateMemoryUnique(allocInfo).value;
 
-#ifdef QT_DEBUG
-    {
-        vk::DebugUtilsObjectNameInfoEXT debugUtilsObjectNameInfo(
-                    vk::ObjectType::eDeviceMemory,
-                    NON_DISPATCHABLE_HANDLE_TO_UINT64_CAST(VkDeviceMemory, *mMemory),
-                    debugName);
-        auto result = mDevice->setDebugUtilsObjectNameEXT(debugUtilsObjectNameInfo);
-    }
-#endif
-
     //Associate the image with this chunk of memory
     auto result = mDevice->bindImageMemory(*mImage, *mMemory, 0);
+    Q_UNUSED(result);
 
     vk::ImageViewCreateInfo viewInfo(
                 { },
@@ -127,6 +104,8 @@ CsImage::CsImage(
                                           1));
 
     mView = mDevice->createImageViewUnique(viewInfo).value;
+
+    Q_UNUSED(debugName);
 }
 
 const vk::UniqueImage& CsImage::getImage() const

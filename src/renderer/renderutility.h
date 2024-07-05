@@ -28,7 +28,7 @@
 
 namespace Cascade::Renderer {
 
-inline const VkDeviceSize aligned(VkDeviceSize v, VkDeviceSize byteAlign)
+inline VkDeviceSize aligned(VkDeviceSize v, VkDeviceSize byteAlign)
 {
     return (v + byteAlign - 1) & ~(byteAlign - 1);
 }

@@ -60,7 +60,7 @@ QString LineEditEntity::getValuesAsString()
 
 void LineEditEntity::loadPropertyValues(const QString &values)
 {
-
+    Q_UNUSED(values);
 }
 
 LineEditEntity::~LineEditEntity()

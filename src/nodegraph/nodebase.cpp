@@ -60,6 +60,8 @@ NodeBase::NodeBase(
     RenderManager* rm = &RenderManager::getInstance();
     connect(rm, &RenderManager::nodeHasBeenRendered,
             this, &NodeBase::onNodeHasBeenRendered);
+
+    Q_UNUSED(isfName);
 }
 
 void NodeBase::setUpNode(const NodeType nodeType)

@@ -169,6 +169,7 @@ void CsCommandBuffer::recordImageLoad(
     vk::CommandBufferBeginInfo cmdBufferBeginInfo;
 
     result = mCommandBufferImageLoad->begin(cmdBufferBeginInfo);
+    Q_UNUSED(result);
 
     loadImage->transitionLayoutTo(
                 mCommandBufferImageLoad,

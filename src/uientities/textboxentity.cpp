@@ -43,7 +43,7 @@ QString TextBoxEntity::getValuesAsString()
 
 void TextBoxEntity::loadPropertyValues(const QString &values)
 {
-
+    Q_UNUSED(values);
 }
 
 TextBoxEntity::~TextBoxEntity()

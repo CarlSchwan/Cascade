@@ -468,6 +468,7 @@ void NodeGraph::handleShutdownRequest()
 
 void NodeGraph::handleSwitchToViewerMode(const ViewerMode mode)
 {
+    Q_UNUSED(mode);
     viewNode(mSelectedNode);
 }
 

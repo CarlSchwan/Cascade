@@ -29,8 +29,6 @@
 #include <OpenImageIO/color.h>
 
 #include "../vulkanwindow.h"
-#include "../uientities/fileboxentity.h"
-#include "../benchmark.h"
 #include "../multithreading.h"
 #include "../log.h"
 #include "renderutility.h"
@@ -488,7 +486,7 @@ bool VulkanRenderer::createImageFromFile(const QString &path, const int colorSpa
 
     updateVertexData(mCpuImage->xend(), mCpuImage->yend());
 
-    auto imageSize = QSize(mCpuImage->xend(), mCpuImage->yend());
+    //auto imageSize = QSize(mCpuImage->xend(), mCpuImage->yend());
 
     vk::FormatProperties props = mPhysicalDevice.getFormatProperties(globalImageFormat);
     const bool canSampleLinear = (bool)(props.linearTilingFeatures & vk::FormatFeatureFlagBits::eSampledImage);

@@ -33,8 +33,8 @@ QFile Log::sOutFile;
 QTextStream Log::sStream;
 
 void Log::messageHandler(
-        QtMsgType type,
-        const QMessageLogContext& context,
+        [[maybe_unused]] QtMsgType type,
+        [[maybe_unused]] const QMessageLogContext& context,
         const QString & msg)
 {
     QString txt = QString("[VULKAN] %1").arg(msg);

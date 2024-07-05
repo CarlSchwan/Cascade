@@ -49,7 +49,7 @@ QString TextBrowserEntity::getValuesAsString()
 
 void TextBrowserEntity::loadPropertyValues(const QString &values)
 {
-
+    Q_UNUSED(values);
 }
 
 TextBrowserEntity::~TextBrowserEntity()
