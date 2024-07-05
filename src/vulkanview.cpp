@@ -47,15 +47,11 @@ VulkanView::VulkanView(ViewerStatusBar* statusBar, QWidget *parent)
         dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
     VULKAN_HPP_DEFAULT_DISPATCHER.init(vkGetInstanceProcAddr);
 
-    if (!mInstance.create())
-    {
-        executeMessageBox(MESSAGEBOX_FAILED_INITIALIZATION);
+    vk::Instance instance = vk::createInstance({}, nullptr);
 
-        CS_LOG_FATAL("Failed to create Vulkan instance. Error code: ");
-        CS_LOG_FATAL(QString::number(mInstance.errorCode()));
-    }
+    VULKAN_HPP_DEFAULT_DISPATCHER.init(instance);
 
-    VULKAN_HPP_DEFAULT_DISPATCHER.init(mInstance.vkInstance());
+    mInstance.setVkInstance(instance);
 
     // Create a VulkanWindow
     mVulkanWindow = new VulkanWindow();

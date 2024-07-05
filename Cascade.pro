@@ -260,7 +260,6 @@ linux-g++ {
     LIBS += -L$$PWD/external/glslang/lib -lglslang
     LIBS += -L$$PWD/external/glslang/lib -lglslang-default-resource-limits
     LIBS += -L$$PWD/external/glslang/lib -lOSDependent
-    LIBS += -L$$PWD/external/glslang/lib -lOGLCompiler
     LIBS += -L$$PWD/external/glslang/lib -lGenericCodeGen
 
     CONFIG(debug, debug|release): DESTDIR = $$OUT_PWD/debug
