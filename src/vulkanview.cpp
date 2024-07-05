@@ -24,7 +24,6 @@
 #include <QLoggingCategory>
 
 #include "viewerstatusbar.h"
-#include "renderer/vulkanrenderer.h"
 #include "log.h"
 #include "popupmessages.h"
 #include "renderer/renderconfig.h"
