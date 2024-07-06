@@ -36,7 +36,7 @@ MainMenu::MainMenu(MainWindow* mainWindow)
     this->addMenu(mFileMenu);
 
     mNewProjectAction = new QAction("New Project" , mFileMenu);
-    mNewProjectAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
+    mNewProjectAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
     mFileMenu->addAction(mNewProjectAction);
     connect(mNewProjectAction, &QAction::triggered,
             mainWindow, &MainWindow::handleNewProjectAction);
@@ -44,19 +44,19 @@ MainMenu::MainMenu(MainWindow* mainWindow)
     mFileMenu->addSeparator();
 
     mOpenProjectAction = new QAction("Open Project" , mFileMenu);
-    mOpenProjectAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
+    mOpenProjectAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
     mFileMenu->addAction(mOpenProjectAction);
     connect(mOpenProjectAction, &QAction::triggered,
             mainWindow, &MainWindow::handleOpenProjectAction);
 
     mSaveProjectAction = new QAction("Save Project" , mFileMenu);
-    mSaveProjectAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+    mSaveProjectAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
     mFileMenu->addAction(mSaveProjectAction);
     connect(mSaveProjectAction, &QAction::triggered,
             mainWindow, &MainWindow::handleSaveProjectAction);
 
     mSaveProjectAsAction = new QAction("Save Project As..." , mFileMenu);
-    mSaveProjectAsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_S));
+    mSaveProjectAsAction->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_S));
     mFileMenu->addAction(mSaveProjectAsAction);
     connect(mSaveProjectAsAction, &QAction::triggered,
             mainWindow, &MainWindow::handleSaveProjectAsAction);

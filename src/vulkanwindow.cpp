@@ -38,7 +38,10 @@ QVulkanWindowRenderer *VulkanWindow::createRenderer()
     // TODO: This does not work
 
     // If there is more than one GPU, pick the discrete one if possible
-    auto props = availablePhysicalDevices();
+    auto props = this->availablePhysicalDevices();
+
+    CS_LOG_INFO(QString::number(props.length()));
+
     if (props.size() > 1)
     {
         bool discreteAvailable = false;

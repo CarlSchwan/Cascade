@@ -25,7 +25,6 @@
 
 #include "viewerstatusbar.h"
 #include "log.h"
-#include "popupmessages.h"
 #include "renderer/renderconfig.h"
 
 namespace Cascade {
