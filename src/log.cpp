@@ -37,7 +37,7 @@ void Log::messageHandler(
         [[maybe_unused]] const QMessageLogContext& context,
         const QString & msg)
 {
-    QString txt = QString("[VULKAN] %1").arg(msg);
+    QString txt = QString("[QT] %1").arg(msg);
     writeToFile(txt);
     console(txt);
 }

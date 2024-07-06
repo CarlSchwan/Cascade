@@ -23,6 +23,7 @@
 #include <QHBoxLayout>
 #include <QLoggingCategory>
 
+#include "src/popupmessages.h"
 #include "viewerstatusbar.h"
 #include "log.h"
 #include "renderer/renderconfig.h"
@@ -36,21 +37,45 @@ VulkanView::VulkanView(ViewerStatusBar* statusBar, QWidget *parent)
 
     CS_LOG_INFO("Creating Vulkan instance");
 
-    // Set up validation layers
-    mInstance.setLayers(Renderer::instanceLayers);
-    mInstance.setExtensions(Renderer::instanceExtensions);
-
     // Set up Dynamic Dispatch Loader to use with vulkan.hpp
     vk::DynamicLoader dl;
     PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr =
         dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
     VULKAN_HPP_DEFAULT_DISPATCHER.init(vkGetInstanceProcAddr);
 
-    vk::Instance instance = vk::createInstance({}, nullptr);
+    vk::ApplicationInfo applicationInfo("Cascade", 1, "Cascade Engine", 1, VK_API_VERSION_1_1);
+    vk::InstanceCreateInfo instanceCreateInfo( {}, &applicationInfo );
+    vk::Instance instance = vk::createInstance( instanceCreateInfo );
 
     VULKAN_HPP_DEFAULT_DISPATCHER.init(instance);
 
     mInstance.setVkInstance(instance);
+    // Set up validation layers
+    mInstance.setLayers(Renderer::instanceLayers);
+    mInstance.setExtensions(Renderer::instanceExtensions);
+    mInstance.create();
+
+    // CS_LOG_INFO("Creating Vulkan instance");
+
+    // // Set up Dynamic Dispatch Loader to use with vulkan.hpp
+    // vk::DynamicLoader dl;
+    // PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr =
+    //     dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
+    // VULKAN_HPP_DEFAULT_DISPATCHER.init(vkGetInstanceProcAddr);
+
+    // // Set up validation layers
+    // mInstance.setLayers(Renderer::instanceLayers);
+    // mInstance.setExtensions(Renderer::instanceExtensions);
+
+    // if (!mInstance.create())
+    // {
+    //     executeMessageBox(MESSAGEBOX_FAILED_INITIALIZATION);
+
+    //     CS_LOG_FATAL("Failed to create Vulkan instance. Error code: ");
+    //     CS_LOG_FATAL(QString::number(mInstance.errorCode()));
+    // }
+
+    // VULKAN_HPP_DEFAULT_DISPATCHER.init(mInstance.vkInstance());
 
     // Create a VulkanWindow
     mVulkanWindow = new VulkanWindow();

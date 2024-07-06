@@ -37,10 +37,18 @@ QVulkanWindowRenderer *VulkanWindow::createRenderer()
 
     // TODO: This does not work
 
+    // auto inst = vulkanInstance();
+    // if (inst->isValid())
+    // {
+    //     CS_LOG_INFO("Vulkan instance is valid.");
+    // }
+    // else
+    // {
+    //     CS_LOG_CRITICAL("No valid Vulkan instance.");
+    // }
+
     // If there is more than one GPU, pick the discrete one if possible
     auto props = this->availablePhysicalDevices();
-
-    CS_LOG_INFO(QString::number(props.length()));
 
     if (props.size() > 1)
     {
