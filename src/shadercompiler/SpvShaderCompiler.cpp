@@ -132,9 +132,20 @@ struct SpvCompiler::Impl
 		/* .maxTaskWorkGroupSizeZ_NV = */ 1,
 		/* .maxMeshViewCountNV = */ 4,
 
+        /* .maxMeshOutputVerticesEXT = */ 2048,
+        /* .maxMeshOutputPrimitivesEXT = */ 2048,
+        /* .maxMeshWorkGroupSizeX_EXT = */ 256,
+        /* .maxMeshWorkGroupSizeY_EXT = */ 256,
+        /* .maxMeshWorkGroupSizeZ_EXT = */ 256,
+        /* .maxTaskWorkGroupSizeX_EXT = */ 256,
+        /* .maxTaskWorkGroupSizeY_EXT = */ 256,
+        /* .maxTaskWorkGroupSizeZ_EXT = */ 256,
+        /* .maxMeshViewCountEXT = */ 4,
+        /* .maxDualSourceDrawBuffersEXT = */ 1,
+
 		/* .limits = */
-		/* .nonInductiveForLoops = */ 1,
         {
+            /* .nonInductiveForLoops = */ 1,
             /* .whileLoops = */ 1,
             /* .doWhileLoops = */ 1,
             /* .generalUniformIndexing = */ 1,
