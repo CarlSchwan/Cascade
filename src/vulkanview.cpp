@@ -34,33 +34,34 @@ namespace Cascade {
 VulkanView::VulkanView(ViewerStatusBar* statusBar, QWidget *parent)
     : QWidget(parent)
 {
-    this->setAttribute(Qt::WA_StyledBackground);
+    setAttribute(Qt::WA_StyledBackground);
 
     CS_LOG_INFO("Creating Vulkan instance");
 
     // Set up validation layers
-    instance.setLayers(Renderer::instanceLayers);
-    instance.setExtensions(Renderer::instanceExtensions);
+    mInstance.setLayers(Renderer::instanceLayers);
+    mInstance.setExtensions(Renderer::instanceExtensions);
 
-    // Set up Dynamic Dispatch Loader to use with vulkan.hpp
-    vk::DynamicLoader dl;
-    PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr =
-        dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
-    VULKAN_HPP_DEFAULT_DISPATCHER.init(vkGetInstanceProcAddr);
 
-    if (!instance.create())
+    if (!mInstance.create())
     {
         executeMessageBox(MESSAGEBOX_FAILED_INITIALIZATION);
 
         CS_LOG_FATAL("Failed to create Vulkan instance. Error code: ");
-        CS_LOG_FATAL(QString::number(instance.errorCode()));
+        CS_LOG_FATAL(QString::number(mInstance.errorCode()));
     }
 
-    VULKAN_HPP_DEFAULT_DISPATCHER.init(instance.vkInstance());
+    // Set up Dynamic Dispatch Loader to use with vulkan.hpp
+    vk::detail::DynamicLoader dl;
+    PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr =
+        dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
+    VULKAN_HPP_ASSERT(mInstance.vkInstance());
+    VULKAN_HPP_ASSERT(vkGetInstanceProcAddr);
+    VULKAN_HPP_DEFAULT_DISPATCHER.init(mInstance.vkInstance(), vkGetInstanceProcAddr);
 
     // Create a VulkanWindow
     vulkanWindow = new VulkanWindow();
-    vulkanWindow->setVulkanInstance(&instance);
+    vulkanWindow->setVulkanInstance(&mInstance);
 
     vulkanWindow->setPreferredColorFormats(QVector<VkFormat>() << VK_FORMAT_R32G32B32A32_SFLOAT);
 

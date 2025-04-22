@@ -42,7 +42,7 @@ public:
 private:
     QWidget* vulkanWrapper;
     VulkanWindow* vulkanWindow;
-    QVulkanInstance instance;
+    QVulkanInstance mInstance;
 };
 
 } // namespace Cascade
