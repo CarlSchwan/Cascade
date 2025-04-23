@@ -96,8 +96,7 @@ void NodeBase::createInputs(const NodeInitProperties &props)
         nodeIn->move(-2, 42 + 28 * i);
         nodeInputs.push_back(nodeIn);
 
-        QLabel *label;
-        label = new QLabel(this);
+        auto label = new QLabel(this);
         label->setObjectName("NodeIOLabel");
         label->move(nodeIn->pos() + QPoint(15, -7));
         label->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -453,9 +452,8 @@ void NodeBase::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QRect rect = this->rect();
     QPainterPath path;
-    path.addRoundedRect(rect, cornerRadius, cornerRadius);
+    path.addRoundedRect(rect(), cornerRadius, cornerRadius);
     painter.fillPath(path, defaultColorBrush);
 
     if (isSelected)
