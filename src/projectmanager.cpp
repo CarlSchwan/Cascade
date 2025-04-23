@@ -25,6 +25,7 @@
 #include <QJsonArray>
 #include <QMessageBox>
 
+#include "../cascade-version.h"
 #include "log.h"
 #include "nodedefinitions.h"
 
@@ -208,10 +209,8 @@ QJsonObject ProjectManager::getJsonFromNodeGraph()
     QJsonArray jsonNodeGraph;
     nodeGraph->getNodeGraphAsJson(jsonNodeGraph);
 
-    QJsonObject jsonProject {
-        { "nodegraph", jsonNodeGraph },
-        { "cascade-version", QString("%1.%2.%3")
-                    .arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_BUILD) }
+    QJsonObject jsonProject{{"nodegraph", jsonNodeGraph},
+                            {"cascade-version", QString("%1.%2.%3").arg(CASCADE_VERSION_MAJOR).arg(CASCADE_VERSION_MINOR).arg(CASCADE_VERSION_PATCH)}
 
     };
 

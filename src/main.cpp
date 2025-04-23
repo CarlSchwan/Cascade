@@ -26,6 +26,7 @@
 #include <QSplashScreen>
 #include <QDirIterator>
 
+#include "../cascade-version.h"
 #include "log.h"
 
 #include <OpenImageIO/imagebuf.h>
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
     splash.show();
     splash.showMessage("Starting up...", Qt::AlignCenter, Qt::white);
 
-    QString title = QString("Cascade Image Editor - v%1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_BUILD);
+    QString title = QString("Cascade Image Editor - v%1").arg(CASCADE_VERSION_STRING);
 
     Cascade::Log::Init();
 

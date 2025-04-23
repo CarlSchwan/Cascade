@@ -93,7 +93,7 @@
   <customwidget>
    <class>ColorButton</class>
    <extends>QPushButton</extends>
-   <header>src/colorbutton.h</header>
+   <header>colorbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

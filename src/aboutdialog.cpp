@@ -22,6 +22,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
+#include "../cascade-version.h"
+
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent)
 {
@@ -35,7 +37,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     logoLabel->setAlignment(Qt::AlignHCenter);
 
     QLabel* textLabel = new QLabel(this);
-    textLabel->setText(QString("Version %1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_BUILD));
+    textLabel->setText(QString("Version %1.%2.%3").arg(CASCADE_VERSION_MAJOR).arg(CASCADE_VERSION_MINOR).arg(CASCADE_VERSION_PATCH));
     textLabel->setAlignment(Qt::AlignHCenter);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
