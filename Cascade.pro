@@ -386,16 +386,9 @@ win32-msvc* {
     COPIES += iconengines
     iconengines.files += $$files($$QT_ROOT/plugins/iconengines/qsvgicon.dll)
     iconengines.path = $$DESTDIR/iconengines
-
-    COPIES += styles
-    styles.files += $$files($$QT_ROOT/plugins/styles/qwindowsvistastyle.dll)
-    styles.path = $$DESTDIR/styles
 }
 
 RESOURCES += \
     resources.qrc \
     src/codeeditor/qcodeeditor_resources.qrc
-
-DISTFILES += \
-    style/stylesheet.qss
 

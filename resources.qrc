@@ -1,20 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>style/stylesheet.qss</file>
         <file>shaders/noop_comp.spv</file>
         <file>shaders/texture_frag.spv</file>
         <file>shaders/texture_vert.spv</file>
         <file>shaders/blur_comp.spv</file>
-        <file>fonts/opensans/OpenSans-Bold.ttf</file>
-        <file>fonts/opensans/OpenSans-BoldItalic.ttf</file>
-        <file>fonts/opensans/OpenSans-ExtraBold.ttf</file>
-        <file>fonts/opensans/OpenSans-ExtraBoldItalic.ttf</file>
-        <file>fonts/opensans/OpenSans-Italic.ttf</file>
-        <file>fonts/opensans/OpenSans-Light.ttf</file>
-        <file>fonts/opensans/OpenSans-LightItalic.ttf</file>
-        <file>fonts/opensans/OpenSans-Regular.ttf</file>
-        <file>fonts/opensans/OpenSans-SemiBold.ttf</file>
-        <file>fonts/opensans/OpenSans-SemiBoldItalic.ttf</file>
         <file>design/ui/png/combobox_button_hover.png</file>
         <file>design/ui/png/combobox_button.png</file>
         <file>design/ui/png/slider_handle.png</file>

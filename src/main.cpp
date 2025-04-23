@@ -34,24 +34,7 @@ VULKAN_HPP_DEFAULT_DISPATCH_LOADER_DYNAMIC_STORAGE;
 
 int main(int argc, char *argv[])
 {
-    // Enable scaling for high DPI screens
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QApplication a(argc, argv);
-
-    // Load font
-    int fontId = QFontDatabase::addApplicationFont(":/fonts/opensans/OpenSans-Regular.ttf");
-    QFontDatabase::addApplicationFont(":/fonts/opensans/OpenSans-Bold.ttf");
-    if (fontId != -1)
-        a.setFont(QFont("Open Sans"));
-    else
-        CS_LOG_WARNING("Problem loading font.");
-
-    // Load style sheet
-    QFile f(":/style/stylesheet.qss");
-    f.open(QFile::ReadOnly);
-    QString style = QLatin1String(f.readAll());
-    a.setStyleSheet(style);
 
     // Splash
     QPixmap splashImage(":/design/cascade-splash.png");
