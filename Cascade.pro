@@ -44,24 +44,6 @@ SOURCES += \
     src/codeeditor/QXMLHighlighter.cpp \
     src/colorbutton.cpp \
     src/connection.cpp \
-    src/docking/DockAreaTabBar.cpp \
-    src/docking/DockAreaTitleBar.cpp \
-    src/docking/DockAreaWidget.cpp \
-    src/docking/DockComponentsFactory.cpp \
-    src/docking/DockContainerWidget.cpp \
-    src/docking/DockFocusController.cpp \
-    src/docking/DockManager.cpp \
-    src/docking/DockOverlay.cpp \
-    src/docking/DockSplitter.cpp \
-    src/docking/DockWidget.cpp \
-    src/docking/DockWidgetTab.cpp \
-    src/docking/DockingStateReader.cpp \
-    src/docking/ElidingLabel.cpp \
-    src/docking/FloatingDockContainer.cpp \
-    src/docking/FloatingDragPreview.cpp \
-    src/docking/IconProvider.cpp \
-    src/docking/ads_globals.cpp \
-    src/docking/linux/FloatingWidgetTitleBar.cpp \
     src/isfmanager.cpp \
     src/log.cpp \
     src/main.cpp \
@@ -130,25 +112,6 @@ HEADERS += \
     src/codeeditor/QXMLHighlighter.hpp \
     src/colorbutton.h \
     src/connection.h \
-    src/docking/DockAreaTabBar.h \
-    src/docking/DockAreaTitleBar.h \
-    src/docking/DockAreaTitleBar_p.h \
-    src/docking/DockAreaWidget.h \
-    src/docking/DockComponentsFactory.h \
-    src/docking/DockContainerWidget.h \
-    src/docking/DockFocusController.h \
-    src/docking/DockManager.h \
-    src/docking/DockOverlay.h \
-    src/docking/DockSplitter.h \
-    src/docking/DockWidget.h \
-    src/docking/DockWidgetTab.h \
-    src/docking/DockingStateReader.h \
-    src/docking/ElidingLabel.h \
-    src/docking/FloatingDockContainer.h \
-    src/docking/FloatingDragPreview.h \
-    src/docking/IconProvider.h \
-    src/docking/ads_globals.h \
-    src/docking/linux/FloatingWidgetTitleBar.h \
     src/global.h \
     src/isfmanager.h \
     src/log.h \
@@ -229,21 +192,44 @@ linux-g++ {
     INCLUDEPATH += $$PWD/external/OpenColorIO/install/include
     INCLUDEPATH += $$PWD/external/glslang/include
 
-    LIBS += -L/usr/local/lib -lOpenImageIO
-    LIBS += -L/usr/local/lib -lOpenImageIO_Util
-    LIBS += -L$$PWD/external/OpenColorIO/install -lOpenColorIO
-    LIBS += -L/usr/lib/x86_64-linux-gnu -ldl
-    LIBS += -L/usr/lib/x86_64-linux-gnu -ltbb
+    OS = $$system(uname -a)
+    isArch = $$find(OS,arch)
+    isUbuntu1804LTS = $$find(OS, 18.04.1-Ubuntu)
+    message(OS: $$OS)
+
+    # Check if we are on Ubuntu 18.04 LTS
+    !isEmpty( isUbuntu1804LTS ){
+        message("Bulding for Ubuntu 18.04 LTS")
+        INCLUDEPATH += $$(VULKAN_SDK)/include
+    }
+    # Check if we are on Manjaro (Arch) to use glslang and OpenColorIO provided by pacman
+    #!isEmpty(isArch){
+    #    message("Bulding for Arch linux")
+    #}else{
+    #    message("Custom path to 'external' folder was added")
+    #    INCLUDEPATH += $$PWD/external/OpenColorIO/install/include
+    #    INCLUDEPATH += $$PWD/external/glslang/include
+    #}
+
+    LIBS += -L/usr/local/lib -lOpenImageIO -lOpenImageIO_Util
+    !isEmpty(isManjaro){
+     LIBS +=  -lOpenColorIO
+    }else{
+     LIBS += -L/home/carl/kde6/usr/lib64 -lOpenColorIO
+     LIBS += -L$$PWD/external/glslang/lib
+    }
+
     # The link order of the following libs is important
-    LIBS += -L$$PWD/external/glslang/lib -lSPIRV
-    LIBS += -L$$PWD/external/glslang/lib -lSPIRV-Tools-opt
-    LIBS += -L$$PWD/external/glslang/lib -lSPIRV-Tools
-    LIBS += -L$$PWD/external/glslang/lib -lMachineIndependent
-    LIBS += -L$$PWD/external/glslang/lib -lglslang
-    LIBS += -L$$PWD/external/glslang/lib -lglslang-default-resource-limits
-    LIBS += -L$$PWD/external/glslang/lib -lOSDependent
-    LIBS += -L$$PWD/external/glslang/lib -lOGLCompiler
-    LIBS += -L$$PWD/external/glslang/lib -lGenericCodeGen
+    LIBS += -lSPIRV \
+    -lSPIRV-Tools-opt \
+    -lSPIRV-Tools \
+    -lMachineIndependent \
+    -lglslang \
+    -lglslang-default-resource-limits \
+    -lOSDependent \
+    -lGenericCodeGen
+
+    LIBS += -L/usr/lib/x86_64-linux-gnu -ldl -ltbb
 
     CONFIG(debug, debug|release): DESTDIR = $$OUT_PWD/debug
     CONFIG(release, debug|release): DESTDIR = $$OUT_PWD/release

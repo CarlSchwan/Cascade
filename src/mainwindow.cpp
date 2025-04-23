@@ -32,10 +32,6 @@
 #include "preferencesdialog.h"
 #include "aboutdialog.h"
 
-using ads::CDockManager;
-using ads::CDockWidget;
-using ads::DockWidgetArea;
-
 namespace Cascade {
 
 MainWindow::MainWindow(QWidget *parent)
@@ -48,15 +44,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
-    dockManager = new CDockManager(this);
-
     viewerStatusBar = new ViewerStatusBar();
 
     vulkanView = new VulkanView(viewerStatusBar);
-    CDockWidget* vulkanViewDockWidget = new CDockWidget("Viewer");
-    vulkanViewDockWidget->setWidget(vulkanView);
-    auto* centralDockArea = dockManager->setCentralWidget(vulkanViewDockWidget);
-    centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    setCentralWidget(vulkanView);
 
     isfManager = &ISFManager::getInstance();
     isfManager->setUp();
@@ -64,21 +55,17 @@ MainWindow::MainWindow(QWidget *parent)
     nodeGraph = new NodeGraph();
     nodeGraph->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     nodeGraph->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    nodeGraphDockWidget = new CDockWidget("Node Graph");
+    nodeGraphDockWidget = new QDockWidget("Node Graph");
     nodeGraphDockWidget->setWidget(nodeGraph);
-    dockManager->addDockWidget(
-                DockWidgetArea::BottomDockWidgetArea,
-                nodeGraphDockWidget,
-                centralDockArea);
+    addDockWidget(Qt::BottomDockWidgetArea,
+                nodeGraphDockWidget);
 
     propertiesView = new PropertiesView();
-    propertiesViewDockWidget = new CDockWidget("Properties");
+    propertiesViewDockWidget = new QDockWidget("Properties");
     propertiesViewDockWidget->setWidget(propertiesView);
     propertiesViewDockWidget->resize(700, 700);
-    dockManager->addDockWidget(
-                DockWidgetArea::RightDockWidgetArea,
-                propertiesViewDockWidget,
-                centralDockArea);
+    addDockWidget(Qt::RightDockWidgetArea,
+                propertiesViewDockWidget);
 
     mainMenu = new MainMenu(this);
     this->setMenuBar(mainMenu);
@@ -113,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent)
     projectManager->createStartupProject();
 
     // Bring window to front, just in case it isn't
-    this->setWindowState(Qt::WindowActive);
+    setWindowState(Qt::WindowActive);
 }
 
 NodeGraph* MainWindow::getNodeGraph() const
@@ -150,7 +137,7 @@ void MainWindow::handleProjectTitleChanged(const QString& t)
     QString spacer = "- ";
     if (t == "*")
         spacer = "";
-    nodeGraphDockWidget->setTitle("Node Graph " + spacer + t);
+    nodeGraphDockWidget->setTitleBarWidget(new QLabel("Node Graph " + spacer + t));
 }
 
 void MainWindow::handleNewProjectAction()

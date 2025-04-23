@@ -23,10 +23,7 @@
 #include <QMainWindow>
 #include <QWidgetAction>
 #include <QSettings>
-
-#include "docking/DockManager.h"
-#include "docking/DockAreaWidget.h"
-#include "docking/DockWidget.h"
+#include <QDockWidget>
 
 #include "windowmanager.h"
 #include "rendermanager.h"
@@ -54,8 +51,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
-    ads::CDockWidget* nodeGraphDockWidget;
-    ads::CDockWidget* propertiesViewDockWidget;
+    QDockWidget* nodeGraphDockWidget;
+    QDockWidget* propertiesViewDockWidget;
 
     NodeGraph* getNodeGraph() const;
 
@@ -70,8 +67,6 @@ private:
 
     WindowManager* windowManager;
     RenderManager* renderManager;
-
-    ads::CDockManager* dockManager;
 
     MainMenu* mainMenu;
     ProjectManager* projectManager;
