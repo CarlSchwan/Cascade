@@ -34,8 +34,6 @@ namespace Cascade {
 VulkanView::VulkanView(ViewerStatusBar* statusBar, QWidget *parent)
     : QWidget(parent)
 {
-    setAttribute(Qt::WA_StyledBackground);
-
     CS_LOG_INFO("Creating Vulkan instance");
 
     // Set up validation layers
