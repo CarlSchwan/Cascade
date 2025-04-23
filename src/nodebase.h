@@ -187,7 +187,7 @@ private:
     int rotation = 0;
 
     const int cornerRadius = 6;
-    const QBrush defaultColorBrush = QBrush(QColor(24, 27, 30));
+    const QBrush defaultColorBrush = QBrush(QColor(0, 170, 255));
     const QBrush selectedColorBrush = QBrush(QColor(37, 74, 115));
     const QPen defaultColorPen = QPen(QColor(0x62, 0x69, 0x71), 3);
 
